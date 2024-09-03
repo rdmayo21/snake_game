@@ -13,6 +13,7 @@ let food = getRandomFood();
 let dx = 0;
 let dy = 0;
 let score = 0;
+let gameSpeed = 100; // Initial game speed (lower is faster)
 
 document.addEventListener('keydown', changeDirection);
 
@@ -73,6 +74,10 @@ function moveSnake() {
     if (head.x === food.x && head.y === food.y) {
         score++;
         food = getRandomFood();
+        // Increase game speed (decrease interval) with each point
+        gameSpeed = Math.max(50, gameSpeed - 2); // Minimum speed of 50ms
+        clearInterval(gameLoop);
+        gameLoop = setInterval(drawGame, gameSpeed);
     } else {
         snake.pop();
     }
@@ -108,10 +113,13 @@ function resetGame() {
     dx = 0;
     dy = 0;
     score = 0;
+    gameSpeed = 100; // Reset game speed
+    clearInterval(gameLoop);
+    gameLoop = setInterval(drawGame, gameSpeed);
 }
 
 function updateScore() {
     scoreElement.textContent = score;
 }
 
-setInterval(drawGame, 100);
+let gameLoop = setInterval(drawGame, gameSpeed);
