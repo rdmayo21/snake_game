@@ -87,7 +87,7 @@ function moveSnake() {
 }
 
 function drawSnake() {
-    ctx.fillStyle = 'green';
+    ctx.fillStyle = 'blue';
     snake.forEach(segment => {
         ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 2, gridSize - 2);
     });
