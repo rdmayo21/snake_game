@@ -13,7 +13,9 @@ let food = getRandomFood();
 let dx = 0;
 let dy = 0;
 let score = 0;
-let gameSpeed = 100; // Initial game speed (lower is faster)
+let gameSpeed = 200; // Initial game speed (lower is faster)
+const minGameSpeed = 50; // Minimum game speed (maximum speed)
+const speedIncrease = 10; // Amount to decrease the interval by for each point
 
 document.addEventListener('keydown', changeDirection);
 
@@ -75,9 +77,10 @@ function moveSnake() {
         score++;
         food = getRandomFood();
         // Increase game speed (decrease interval) with each point
-        gameSpeed = Math.max(50, gameSpeed - 2); // Minimum speed of 50ms
+        gameSpeed = Math.max(minGameSpeed, gameSpeed - speedIncrease);
         clearInterval(gameLoop);
         gameLoop = setInterval(drawGame, gameSpeed);
+        console.log("New game speed:", gameSpeed); // Log the new speed for debugging
     } else {
         snake.pop();
     }
@@ -113,7 +116,7 @@ function resetGame() {
     dx = 0;
     dy = 0;
     score = 0;
-    gameSpeed = 100; // Reset game speed
+    gameSpeed = 200; // Reset game speed to initial value
     clearInterval(gameLoop);
     gameLoop = setInterval(drawGame, gameSpeed);
 }
